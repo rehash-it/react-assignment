@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 const Content = () => {
-    return (<></> );
-}
- 
+  return <> fgsdfgsdfg</>;
+};
+
 export default Content;
