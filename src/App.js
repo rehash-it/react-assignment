@@ -3,6 +3,7 @@ import Sidenavbar from './components/sidenavbar/sidenavbar.component';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Users from './components/users/users.component';
 import Organizations from './components/organizations/organizations.component';
+import Footer from './components/footer/footer.component';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/organizations" component={Organizations} />
         </Switch>
       </Router>
+      <Footer/>
     </div>
   );
 }
