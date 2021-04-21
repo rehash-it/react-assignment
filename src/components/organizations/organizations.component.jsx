@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Avatar, Button, Typography } from "@material-ui/core";
+import { Avatar, Button, Grid, Typography } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import { token } from "../../keys/keys";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -72,48 +72,54 @@ export default function Organizations() {
   };
 
   return (
-    <div style={{ paddingLeft: "250px", paddingTop: "100px" }}>
-      <Typography align="left" ariant="h1" component="h1">Organizations of Github</Typography>
-      <TableContainer component={Paper}>
-        <Table aria-label="customized table">
-          <TableHead>
-            <StyledTableRow>
-              <StyledTableCell>Avatar</StyledTableCell>
-              <StyledTableCell align="left">Name</StyledTableCell>
-              <StyledTableCell align="left">Description</StyledTableCell>
-              <StyledTableCell align="left">Repos</StyledTableCell>
-            </StyledTableRow>
-          </TableHead>
-          <TableBody>
-            {organizations.map((organization) => (
-              <StyledTableRow key={organization.id}>
-                <StyledTableCell component="th" scope="row">
-                  <Avatar
-                    alt={organization.login}
-                    src={organization.avatar_url}
-                  />
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {organization.login}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {organization.description}
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  <Button onClick={(e) => routeChange(organization.repos_url)}>
-                    <FontAwesomeIcon icon={faEye} />
-                  </Button>
-                </StyledTableCell>
+    <Grid container>
+      <Grid item xs={12} sm={12} md={12} lg={12}>
+        <Typography align="left" ariant="h1" component="h1">
+          Organizations of Github
+        </Typography>
+        <TableContainer component={Paper}>
+          <Table aria-label="customized table">
+            <TableHead>
+              <StyledTableRow>
+                <StyledTableCell>Avatar</StyledTableCell>
+                <StyledTableCell align="left">Name</StyledTableCell>
+                <StyledTableCell align="left">Description</StyledTableCell>
+                <StyledTableCell align="left">Repos</StyledTableCell>
               </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Pagination
-        count={Math.ceil(totalOrganizations.length / perPage)}
-        onChange={handleChange}
-        shape="rounded"
-      />
-    </div>
+            </TableHead>
+            <TableBody>
+              {organizations.map((organization) => (
+                <StyledTableRow key={organization.id}>
+                  <StyledTableCell component="th" scope="row">
+                    <Avatar
+                      alt={organization.login}
+                      src={organization.avatar_url}
+                    />
+                  </StyledTableCell>
+                  <StyledTableCell component="th" scope="row">
+                    {organization.login}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    {organization.description}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    <Button
+                      onClick={(e) => routeChange(organization.repos_url)}
+                    >
+                      <FontAwesomeIcon icon={faEye} />
+                    </Button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Pagination
+          count={Math.ceil(totalOrganizations.length / perPage)}
+          onChange={handleChange}
+          shape="rounded"
+        />
+      </Grid>
+    </Grid>
   );
 }

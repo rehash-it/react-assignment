@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,8 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faBell } from "@fortawesome/free-solid-svg-icons";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
-import { Avatar, Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Avatar, Button, Container, CssBaseline } from "@material-ui/core";
+import { Link, Route } from "react-router-dom";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
@@ -20,8 +21,9 @@ import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import Organizations from "../organizations/organizations.component";
+import Users from "../users/users.component";
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +31,17 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+  },
+  appBarBottom: {
+    zIndex: theme.zIndex.drawer + 1,
+    bottom: "0px",
+    position: "absolute",
+    top:"95%",
+    height: "70px",
+    left: "0px",
+    right: "0px",
+    marginBottom: "0px",
+    textAlign: "center",
   },
   drawer: {
     width: drawerWidth,
@@ -42,7 +55,19 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(10),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -89,7 +114,8 @@ export default function Sidenavbar() {
   }, [toggle]);
 
   return (
-    <div>
+    <div className={classes.root}>
+      <CssBaseline />
       <AppBar className={classes.appBar}>
         <Toolbar>
           <Button onClick={handleDrawerOpenClose}>
@@ -98,54 +124,54 @@ export default function Sidenavbar() {
           <Typography variant="h6" noWrap>
             Github
           </Typography>
-            <div>
-              <Button
-                ref={anchorRef}
-                aria-controls={toggle ? "menu-list-grow" : undefined}
-                aria-haspopup="true"
-                onClick={handleToggle}
-              >
-                <FontAwesomeIcon size="2x" icon={faBell} />
-              </Button>
-              <Popper
-                open={toggle}
-                anchorEl={anchorRef.current}
-                role={undefined}
-                transition
-                disablePortal
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom",
-                    }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={handleClose}>
-                        <MenuList
-                          autoFocusItem={toggle}
-                          id="menu-list-grow"
-                          onKeyDown={handleListKeyDown}
-                        >
-                          <MenuItem onClick={handleClose}>
-                            31 Issues were reported in ABC repo in past 24 hour
-                          </MenuItem>
-                          <MenuItem onClick={handleClose}>
-                            users starred XYZ repo in past 24 hours{" "}
-                          </MenuItem>
-                          <MenuItem onClick={handleClose}>
-                            87 people downloaded the GHY repo in past 24 hours
-                          </MenuItem>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
-            </div>
-            <Avatar className={classes.purple}>RA</Avatar>
+          <div>
+            <Button
+              ref={anchorRef}
+              aria-controls={toggle ? "menu-list-grow" : undefined}
+              aria-haspopup="true"
+              onClick={handleToggle}
+            >
+              <FontAwesomeIcon size="2x" icon={faBell} />
+            </Button>
+            <Popper
+              open={toggle}
+              anchorEl={anchorRef.current}
+              role={undefined}
+              transition
+              disablePortal
+            >
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{
+                    transformOrigin:
+                      placement === "bottom" ? "center top" : "center bottom",
+                  }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList
+                        autoFocusItem={toggle}
+                        id="menu-list-grow"
+                        onKeyDown={handleListKeyDown}
+                      >
+                        <MenuItem onClick={handleClose}>
+                          31 Issues were reported in ABC repo in past 24 hour
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>
+                          users starred XYZ repo in past 24 hours{" "}
+                        </MenuItem>
+                        <MenuItem onClick={handleClose}>
+                          87 people downloaded the GHY repo in past 24 hours
+                        </MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+          </div>
+          <Avatar className={classes.purple}>RA</Avatar>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -166,7 +192,7 @@ export default function Sidenavbar() {
                 <ListItemText primary="Users" />
               </ListItem>
             </Link>
-            <Link to="/organization" style={{ textDecoration: "none" }}>
+            <Link to="/organizations" style={{ textDecoration: "none" }}>
               <ListItem button key="Origanazations">
                 <FontAwesomeIcon icon={faBuilding} />
                 <ListItemText primary="Organizations" />
@@ -175,9 +201,23 @@ export default function Sidenavbar() {
           </List>
         </div>
       </Drawer>
-      <main className={classes.content}>
-        <Organizations />
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <Route path="/users" component={Users} />
+        <Route path="/organizations" component={Organizations} />
       </main>
+      <AppBar className={classes.appBarBottom} position="fixed" color="primary">
+        <Container maxWidth="md">
+          <Toolbar>
+            <Typography align="right" variant="body1" color="inherit">
+              © Rehana Abdulber 2021
+            </Typography>
+          </Toolbar>
+        </Container>
+      </AppBar>
     </div>
   );
 }

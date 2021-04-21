@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Avatar, Typography } from "@material-ui/core";
+import { Avatar, Grid, Typography } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import {token} from "../../keys/keys";
 const StyledTableCell = withStyles((theme) => ({
@@ -79,7 +79,8 @@ export default function Users() {
   };
 
   return (
-    <div style={{ paddingLeft: "250px", paddingTop: "100px" }}>
+    <Grid container >
+    <Grid item xs ={12} sm={12} md={12} lg={12}>
        <Typography align="left" ariant="h1" component="h1">
         Users of Github
       </Typography>
@@ -138,6 +139,7 @@ export default function Users() {
         onChange={handleChange}
         shape="rounded"
       />
-    </div>
+</Grid>
+</Grid>
   );
 }
