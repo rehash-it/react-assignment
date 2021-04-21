@@ -31,16 +31,13 @@ const StyledTableRow = withStyles((theme) => ({
 export default function Users() {
   const [users, setUsers] = React.useState([]);
   const [totalUsers, setTotalUsers] = React.useState([]);
-
-  let newUsers= [];
-
+  let newUsers = [];
   const perPage = 5;
   React.useEffect(() => {
     getAsyncUsers();
   }, []);
   const usersTodDisplay = (totalUsers, { index1, index2 }) =>
     totalUsers.slice(index1, index2);
-
 
   const handleChange = (event, value) => {
     setUsers(
@@ -51,7 +48,7 @@ export default function Users() {
     );
   };
 
-  const getAsyncUsers =  () => {
+  const getAsyncUsers = () => {
     fetch("https://api.github.com/users", {
       method: "get",
       headers: new Headers({
@@ -60,27 +57,29 @@ export default function Users() {
       }),
     })
       .then((response) => response.json())
-      .then(
-        (response) => {
-          response.forEach(element => {
-            fetch(element.url, {
-                method: "get",
-                headers: new Headers({
-                  Authorization: "Bearer" + token,
-                  "Content-Type": "application/x-www-form-urlencoded",
-                }),
-              }).then((user)=> user.json())
-              .then((userResponse)=>{
-                newUsers.push(userResponse);
-              }).finally(()=>{
-                setTotalUsers(newUsers);
-                setUsers(usersTodDisplay(newUsers, { index1: 0, index2: perPage }));
-              })
-          });
-        }
-      )
-      .catch((error) => console.error(error)); 
-  }
+      .then((response) => {
+        response.forEach((element) => {
+          fetch(element.url, {
+            method: "get",
+            headers: new Headers({
+              Authorization: "Bearer" + token,
+              "Content-Type": "application/x-www-form-urlencoded",
+            }),
+          })
+            .then((user) => user.json())
+            .then((userResponse) => {
+              newUsers.push(userResponse);
+            })
+            .finally(() => {
+              setTotalUsers(newUsers);
+              setUsers(
+                usersTodDisplay(newUsers, { index1: 0, index2: perPage })
+              );
+            });
+        });
+      })
+      .catch((error) => console.error(error));
+  };
 
   return (
     <Grid container>
