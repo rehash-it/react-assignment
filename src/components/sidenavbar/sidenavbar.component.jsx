@@ -2,17 +2,18 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
-import { faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import Users from "../users/users.component";
 
 const drawerWidth = 240;
 
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Sidebar() {
+export default function Sidenavbar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpenClose = () => {
@@ -47,13 +48,12 @@ export default function Sidebar() {
   };
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+    <div>
+      <AppBar className={classes.appBar}>
         <Toolbar>
-          <Button  onClick={handleDrawerOpenClose}>
-        <FontAwesomeIcon icon={faBars} />
-        </Button>
+          <Button onClick={handleDrawerOpenClose}>
+            <FontAwesomeIcon icon={faBars} />
+          </Button>
           <Typography variant="h6" noWrap>
             Github
           </Typography>
@@ -71,18 +71,24 @@ export default function Sidebar() {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button key="Users">
-            <FontAwesomeIcon icon={faUsers} /> 
-            <ListItemText primary="Users" />
-            </ListItem>
+            <Link to="/users" style={{ textDecoration: 'none' }}>
+              <ListItem button key="Users">
+                <FontAwesomeIcon icon={faUsers} />
+                <ListItemText primary="Users" />
+              </ListItem>
+            </Link>
+            <Link to="/organization" style={{ textDecoration: 'none' }}>
             <ListItem button key="Origanazations">
-            <FontAwesomeIcon icon={faBuilding} /> 
-            <ListItemText primary="Organizations" />
+              <FontAwesomeIcon icon={faBuilding} />
+              <ListItemText primary="Organizations" />
             </ListItem>
-          </List>
+            </Link>
+          </List>    
         </div>
       </Drawer>
-      <main className={classes.content}></main>
+      <main className={classes.content}>
+        <Users/>
+      </main>
     </div>
   );
 }
