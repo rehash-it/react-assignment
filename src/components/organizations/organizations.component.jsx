@@ -34,15 +34,13 @@ export default function Organizations() {
   const [organizations, setOrganizations] = React.useState([]);
   const [totalOrganizations, setTotalOrganizations] = React.useState([]);
   const perPage = 5;
-  console.log(token);
   React.useEffect(() => {
     getOrganizations();
   }, []);
   const organizationsTodDisplay = (totalOrganizations, { index1, index2 }) =>
     totalOrganizations.slice(index1, index2);
   const routeChange = (repo_url) => {
-    // let path = `/news/${id}`;
-    // history.push(path);
+    window.open(repo_url, '_blank');
   };
 
   const getOrganizations = () => {

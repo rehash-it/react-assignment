@@ -35,12 +35,11 @@ const useStyles = makeStyles((theme) => ({
   appBarBottom: {
     zIndex: theme.zIndex.drawer + 1,
     bottom: "0px",
-    position: "absolute",
-    top:"95%",
+    top: "90%",
     height: "70px",
     left: "0px",
     right: "0px",
-    marginBottom: "0px",
+    marginBottom: "10px",
     textAlign: "center",
   },
   drawer: {
@@ -124,7 +123,7 @@ export default function Sidenavbar() {
           <Typography variant="h6" noWrap>
             Github
           </Typography>
-          <div>
+          <div style={{ position: "absolute", right: "100px" }}>
             <Button
               ref={anchorRef}
               aria-controls={toggle ? "menu-list-grow" : undefined}
@@ -171,7 +170,9 @@ export default function Sidenavbar() {
               )}
             </Popper>
           </div>
-          <Avatar className={classes.purple}>RA</Avatar>
+          <div style={{ position: "absolute", right: "60px" }}>
+            <Avatar>RA</Avatar>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -206,6 +207,7 @@ export default function Sidenavbar() {
           [classes.contentShift]: open,
         })}
       >
+        <Route exact path="/" component={Users} />
         <Route path="/users" component={Users} />
         <Route path="/organizations" component={Organizations} />
       </main>
