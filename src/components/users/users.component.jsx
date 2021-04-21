@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Typography } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import {token} from "../../keys/keys";
 const StyledTableCell = withStyles((theme) => ({
@@ -80,6 +80,9 @@ export default function Users() {
 
   return (
     <div style={{ paddingLeft: "250px", paddingTop: "100px" }}>
+       <Typography align="left" ariant="h1" component="h1">
+        Users of Github
+      </Typography>
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
@@ -104,7 +107,7 @@ export default function Users() {
             {users.map((user) => (
               <StyledTableRow key={user.id}>
                 <StyledTableCell component="th" scope="row">
-                  <Avatar alt="Remy Sharp" src={user.avatar_url} />
+                  <Avatar alt={user.name} src={user.avatar_url} />
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   {user.login}
